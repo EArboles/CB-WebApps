@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> </title>
+    <style>
+        @import ulr('https://fonts.goolgeapis.com/css2?family=Monteserrat;wght@200;500&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 200;
+            color: var(--tg-theme-text-color);
+            background: var(--tg-theme-bg-color);
+        }
+
+        #main {
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 50x;
+            margin-bottom: 10px;
+        }
+
+        img {
+            width: 70px;
+            margin 30px auto;
+        }
+
+        p {
+            width: 350px;
+            margin: 0 auto;
+        }
+
+        button {
+            border: 0;
+            border_radius: 5px;
+            margin-top: 50px;
+            height: 60px;
+            width: 20px;
+            font-size: 20px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 500ms else;
+            color: var(--tg-theme-button-color);
+            background: var(--tg-theme-button-text-color);
+        }
+
+        button:hover {
+            background: var(--tg-theme-secondary-bg-color);
+        }
+
+        #form {
+            display: none;
+            text-align: center;
+        }
+
+        input {
+            width: 90%;
+            outline: none;
+            margin: 10px 5%;
+            padding: 15p 10px;
+            font-size: 14px;
+            border: 2px solid silver;
+            border-radius: 5px;
+        }
+
+        input:focus {
+            border-color: #db5d5d;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="main">
+        <h1>Онлайн Магазин</h1>
+        <button id="buy">Купить</button>
+    </div>
+    <form id="form">
+        <input type="date" placeholder="Дата" id="card_date">
+        <input type="radio" name="card_bool" value="Да" id="card_yes">
+        <input type="radio" name="card_bool" value="Нет" id="card_no">
+        <input type="text" placeholder="Описание" id="card_description">
+        <div id="error"></div>
+        <button id="order">Оформить</button>
+    </form>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        let tg = window.Telegram.WepApp;
+        let buy = document.getElementById("buy");
+        let order = document.getElementById("order");
+        tg.expand();
+        buy.addEventListener("click", () => {
+            document.getElementById("main").style.display = "none";
+            document.getElementById("form").style.display = "block";
+        });
+
+        order.addEventListener("click", () => {
+            document.getElementById("error").innerText = '';
+            let date = document.getElementById("card_date").value;
+            let card_bool = document.getElementById("card_yes).value;
+            let card_description = document.getElementById("card_description").value;
+            if (card_description.length < 5){
+                document.getElementById("error").innerText = 'Не заполнено описание';
+                return;
+            }
+            let data = {
+                date: date,
+                card_bool: card_bool,
+                description: card_description
+            }
+            tg.sendData(JSON.stringify(data));
+            tg.close();
+        });
+    </script>
+</body>
+</html>
