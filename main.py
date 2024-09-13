@@ -11,7 +11,8 @@ require a bot token.
 import json
 import logging
 
-from telegram import KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove, Update, WebAppInfo
+from telegram import (KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove,InlineKeyboardButton,InlineKeyboardMarkup,
+                      Update, WebAppInfo)
 from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters
 
 # Enable logging
@@ -29,10 +30,10 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Send a message with a button that opens a the web app."""
     await update.message.reply_text(
         "Please press the button below to choose a color via the WebApp.",
-        reply_markup=ReplyKeyboardMarkup.from_button(
-            KeyboardButton(
+        reply_markup=InlineKeyboardMarkup.from_button(
+            InlineKeyboardButton(
                 text="Open the color picker!",
-                web_app=WebAppInfo(url="https://python-telegram-bot.org/static/webappbot"),
+                web_app=WebAppInfo(url="https://main--warm-pixie-7e7d47.netlify.app"),
             )
         ),
     )
